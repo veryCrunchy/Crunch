@@ -112,15 +112,16 @@ export default event("messageCreate", async ({ log }, message) => {
     bumpMessage();
   }
   function bumpMessage(bumps: number = 1) {
+    const url = `https://verycrunchy.dev/bump/${message.guild?.id}`;
     message.reply({
       embeds: [
         new EmbedBuilder()
+          .setTitle("Bump Leaderboard")
+          .setURL(url)
           .setDescription(
             `This is your [\`${ordinal(
               bumps
-            )}\`](https://verycrunchy.dev/bump/${
-              message.guild?.id
-            }) </bump:947088344167366698> this month!`
+            )}\`](${url}) </bump:947088344167366698> this month!`
           )
           .setFooter({
             text: message.interaction?.user?.username ?? "Unknown",
