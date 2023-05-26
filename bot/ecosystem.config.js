@@ -7,7 +7,9 @@ module.exports = {
       instances: 1,
       wait_ready: true,
       listen_timeout: 5000,
+      watch_delay: 10000,
       watch: ["./dist"],
+      env: { NODE_ENV: "production" },
     },
   ],
 };

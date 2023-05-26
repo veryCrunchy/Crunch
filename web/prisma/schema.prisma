@@ -62,24 +62,42 @@ model VerificationToken {
 }
 
 model DiscordBumps {
-  uid           String        @id
-  month         Int
-  year          Int
-  bumps         Int
-  sid           String
-  DiscordServer DiscordServer @relation(fields: [sid], references: [id])
+  id                  String              @id
+  memberId            String
+  uid                 String
+  sid                 String
+  month               Int
+  bumps               Int
+  updatedAt           DateTime            @db.Date
+  DiscordServerMember DiscordServerMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
 
-  @@index([sid], map: "DiscordBumps_sid_fkey")
+  @@unique([uid, sid, month])
+  @@index([memberId], map: "DiscordBumps_memberId_fkey")
+  @@index([uid, sid, month])
 }
 
 model DiscordServer {
   id                    String                 @id
-  DiscordBumps          DiscordBumps[]
+  sid                   String                 @unique
+  DiscordServerMember   DiscordServerMember[]
   DiscordServerSettings DiscordServerSettings?
 }
 
 model DiscordServerSettings {
-  id            String        @id @unique
-  bumps         Boolean       @default(false)
-  DiscordServer DiscordServer @relation(fields: [id], references: [id])
+  id            String        @id
+  sid           String        @unique
+  bumps         Boolean       @default(true)
+  DiscordServer DiscordServer @relation(fields: [sid], references: [sid], onDelete: Cascade)
+}
+
+model DiscordServerMember {
+  id            String         @id
+  uid           String
+  sid           String
+  DiscordBumps  DiscordBumps[]
+  DiscordServer DiscordServer  @relation(fields: [sid], references: [sid], onDelete: Cascade)
+
+  @@unique([uid, sid])
+  @@index([sid], map: "DiscordServerMember_sid_fkey")
+  @@index([uid, sid])
 }
