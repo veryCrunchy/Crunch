@@ -121,9 +121,10 @@ export default event("messageCreate", async ({ log }, message) => {
     bumpMessage();
   }
   function bumpMessage(bumps: number = 1) {
-    let desc = `You bumped this server \`${bumps}\` times this month!`;
+    let desc = `You </bump:947088344167366698>ed this server \`${bumps}\` times this month!`;
     if (bumps == 1)
-      desc = "You bumped this server for the **first** time this month!";
+      desc =
+        "You </bump:947088344167366698>ed this server for the **first** time this month!";
     message.reply({
       embeds: [
         new EmbedBuilder()
