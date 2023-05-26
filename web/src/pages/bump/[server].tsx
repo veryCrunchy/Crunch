@@ -77,7 +77,7 @@ const Home: NextPage = () => {
                     " bg-gradient-to-br from-indigo-300/60 to-indigo-200/60";
                 if (index == 2)
                   style +=
-                    " bg-gradient-to-br from-[#645441]/40 to-[#30291f]/30";
+                    " bg-gradient-to-br from-[#c28f61]/60 to-[#8f6947]/50";
 
                 return (
                   <div key={bump.id} className={style}>
@@ -97,8 +97,8 @@ const Home: NextPage = () => {
                         width={100}
                         height={100}
                       ></Image>
-                      <div className="flex flex-col">
-                        <p className="relative text-base font-extrabold">
+                      <div className="flex w-full">
+                        <p className="relative w-full whitespace-nowrap text-base font-extrabold">
                           {u?.username || ""}
                           <span className="absolute left-0 text-sm font-semibold text-gray-600/60">
                             <br />#{u?.discriminator || ""}
