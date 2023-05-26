@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react";
 import { Roboto } from "next/font/google";
 import { GoogleAnalytics, event } from "nextjs-google-analytics";
 import type { NextWebVitalsMetric } from "next/app";
+import { env } from "~/env.mjs";
 
 // If loading a variable font, you don't need to specify the font weight
 const roboto = Roboto({
@@ -33,7 +34,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
+      <GoogleAnalytics
+        trackPageViews={{ ignoreHashChange: true }}
+        gaMeasurementId={env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
+      />
 
       <div
         className={

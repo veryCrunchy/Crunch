@@ -23,6 +23,7 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: z.string(),
     DISCORD_CLIENT_SECRET: z.string(),
     DISCORD_TOKEN: z.string(),
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string(),
   },
 
   /**
@@ -46,5 +47,6 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     DISCORD_TOKEN: process.env.DISCORD_TOKEN,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
   },
 });
