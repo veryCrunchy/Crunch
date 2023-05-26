@@ -30,7 +30,7 @@ export default command(meta, async ({ interaction }) => {
           .setTitle("Click to view bump leaderboard")
           .setURL(`https://verycrunchy.dev/bump/${interaction.guild?.id}`)
           .setDescription(
-            `You bumped this server \`${bump.bumps}\` ${times} this month!`
+            `You </bump:947088344167366698>ed this server \`${bump.bumps}\` ${times} this month!`
           )
           .setColor(keys.color.primary),
       ],

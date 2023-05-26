@@ -9,21 +9,12 @@ import {
 } from "../../utils";
 import { EmbedBuilder } from "discord.js";
 export default event("messageCreate", async ({ log }, message) => {
-  //FIXME: remove this in production
-  // if (
-  //   ![
-  //     "1063496536874561568",
-  //     "919655778615435425",
-  //     "893881317702393876",
-  //   ].includes(`${message.guild?.id}`)
-  // )
-  //   return;
   if (message.author.id !== "302050872383242240") return;
 
   let msg = message.embeds[0];
   if (!msg?.data?.description?.toLowerCase()?.includes("bump done")) return;
 
-  let user = `${message.interaction?.user.id || message.author.id}`;
+  let user = `${message.interaction?.user.id}`;
   let guild = `${message.guild?.id}`;
 
   const server = await prisma.discordServer.findFirst({
@@ -121,22 +112,37 @@ export default event("messageCreate", async ({ log }, message) => {
     bumpMessage();
   }
   function bumpMessage(bumps: number = 1) {
-    let desc = `You </bump:947088344167366698>ed this server \`${bumps}\` times this month!`;
-    if (bumps == 1)
-      desc =
-        "You </bump:947088344167366698>ed this server for the **first** time this month!";
     message.reply({
       embeds: [
         new EmbedBuilder()
-          .setTitle("Bump Leaderboard")
-          .setURL(`https://verycrunchy.dev/bump/${message.guild?.id}`)
-          .setDescription(desc)
-          // .setFooter({
-          //   text: message.interaction.user.username,
-          //   iconURL: `https://cdn.discordapp.com/avatars/${message.interaction.user.id}/${message.interaction.user.avatar}.webp?size=80`,
-          // })
+          .setDescription(
+            `This is your [\`${ordinal(
+              bumps
+            )}\`](https://verycrunchy.dev/bump/${
+              message.guild?.id
+            }) </bump:947088344167366698> this month!`
+          )
+          .setFooter({
+            text: message.interaction?.user?.username ?? "Unknown",
+            iconURL: `https://cdn.discordapp.com/avatars/${message.interaction?.user?.id}/${message.interaction?.user?.avatar}.webp?size=80`,
+          })
           .setColor(keys.color.primary),
       ],
     });
   }
 });
+
+function ordinal(i: number) {
+  const j = i % 10,
+    k = i % 100;
+  if (j == 1 && k != 11) {
+    return String(i) + "st";
+  }
+  if (j == 2 && k != 12) {
+    return String(i) + "nd";
+  }
+  if (j == 3 && k != 13) {
+    return String(i) + "rd";
+  }
+  return String(i) + "th";
+}
