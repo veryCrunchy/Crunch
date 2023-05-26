@@ -1,20 +1,11 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 import { command } from "../../utils";
-
+import keys from "../../keys";
 const meta = new SlashCommandBuilder()
   .setName("ping")
-  .setDescription("Ping the bot for a response.")
-  .addStringOption((option) =>
-    option
-      .setName("message")
-      .setDescription("Provide the bot a message to respond with.")
-      .setMinLength(1)
-      .setMaxLength(2000)
-      .setRequired(false)
-  );
+  .setDescription("Ping the bot for a response.");
 
-export default command(meta, ({ interaction }) => {
-  const message = interaction.options.getString("message");
+export default command(meta, async ({ interaction }) => {
   // const bump = new EmbedBuilder()
   //   .setTitle("DISBOARD: The Public Server List")
   //   .setDescription("Bump done! :thumbsup:\nCheck it out")
@@ -23,9 +14,26 @@ export default command(meta, ({ interaction }) => {
   // return interaction.reply({
   //   embeds: [bump],
   // });
-
-  return interaction.reply({
+  await interaction.deferReply({
     ephemeral: true,
-    content: message ?? "Pong! 🏓",
+  });
+
+  const ping =
+    (await interaction.fetchReply()).createdTimestamp -
+    interaction.createdTimestamp;
+
+  return interaction.editReply({
+    embeds: [
+      new EmbedBuilder()
+        .addFields(
+          { name: "Client", value: `\`\`\`fix\n${ping}ms\`\`\``, inline: true },
+          {
+            name: "Websocket (avg)",
+            value: `\`\`\`fix\n${interaction.client.ws.ping}ms\`\`\``,
+            inline: true,
+          }
+        )
+        .setColor(keys.color.primary),
+    ],
   });
 });
