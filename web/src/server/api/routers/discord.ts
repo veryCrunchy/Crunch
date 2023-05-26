@@ -15,7 +15,7 @@ const cache = new NodeCache();
 export const discordRouter = createTRPCRouter({
   getBasicUsersInfo: publicProcedure
     .input(z.object({ users: z.string().array() }))
-    .query(async ({ ctx, input }) => {
+    .query(async ({ input }) => {
       const info: UserData[] = [];
       await Promise.all(
         input.users.map(async (user) => {
@@ -23,7 +23,6 @@ export const discordRouter = createTRPCRouter({
           const cachedData = cache.get(cacheKey) as UserData | undefined;
           if (cachedData) {
             info.push(cachedData);
-            console.log("cached");
           } else {
             const response = await fetch(
               `https://canary.discord.com/api/v10/users/${user}`,
@@ -40,7 +39,6 @@ export const discordRouter = createTRPCRouter({
                 message: response.statusText,
               });
             }
-            console.log("fetched");
 
             const userPromise = response.json() as Promise<UserData>;
             const data = await userPromise;

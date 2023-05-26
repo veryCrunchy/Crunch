@@ -23,8 +23,6 @@ const Home: NextPage = () => {
   const { data: user } = api.discord.getBasicUsersInfo.useQuery({
     users: users,
   });
-  console.log(user);
-  console.log("test");
 
   return (
     <>
@@ -66,11 +64,17 @@ const Home: NextPage = () => {
                 </div>
 
                 {data?.map((bump, index) => {
-                  let src = `https://cdn.discordapp.com/avatars/${bump.uid}/${
-                    user?.[index]?.avatar || "default-avatar"
-                  }.png`;
+                  const u = user?.find((u) => u.id == bump.uid);
+                  let src = `https://cdn.discordapp.com/avatars/${
+                    u?.id || "0"
+                  }/${u?.avatar || "default-avatar"}.png`;
+                  console.log(src);
                   if (src.includes("default-avatar"))
                     src = "https://cdn.discordapp.com/embed/avatars/0.png";
+
+                  let color = "black";
+                  if (index == 1) color = "yellow";
+                  console.log(index);
                   return (
                     <div
                       key={bump.id}
@@ -78,7 +82,7 @@ const Home: NextPage = () => {
                     >
                       <div className="flex w-5/12">
                         <Image
-                          className="sm: mr-2 h-10 w-20 self-center rounded-full sm:h-20"
+                          className="mr-2 h-10 w-10 rounded-full"
                           alt="user-icon"
                           src={src}
                           width={100}
@@ -86,18 +90,18 @@ const Home: NextPage = () => {
                         ></Image>
                         <div className="flex flex-col">
                           <p className="text-sm font-bold text-gray-900/90">
-                            {user?.[index]?.username || ""}
+                            {u?.username || ""}
                           </p>
                           <p className="hidden text-gray-600 sm:block">
-                            # {user?.[index]?.discriminator || ""}
+                            #{u?.discriminator || ""}
                           </p>
                         </div>
                       </div>
-                      <div className="flex w-5/12 items-center justify-end text-right text-lg font-bold sm:text-xl ">
+                      <div className="flex w-5/12 items-center justify-end text-right text-lg font-bold sm:text-xl">
                         <p className="w-8 px-1 text-center">{bump.bumps}</p>
                       </div>
                       <p className="text-md w-1/6 pl-14  font-semibold">
-                        {index + 1}
+                        {ordinal(index + 1)}
                       </p>
                     </div>
                   );
@@ -121,11 +125,6 @@ export default Home;
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
 
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <button
@@ -139,3 +138,18 @@ const AuthShowcase: React.FC = () => {
     </div>
   );
 };
+
+function ordinal(i: number) {
+  const j = i % 10,
+    k = i % 100;
+  if (j == 1 && k != 11) {
+    return String(i) + "st";
+  }
+  if (j == 2 && k != 12) {
+    return String(i) + "nd";
+  }
+  if (j == 3 && k != 13) {
+    return String(i) + "rd";
+  }
+  return String(i) + "th";
+}
