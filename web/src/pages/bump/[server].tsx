@@ -1,13 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
+import UserGreeting from "~/components/UserGreeting";
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  const { data: sessionData } = useSession();
   const router = useRouter();
 
   const server = router.query.server;
@@ -34,42 +32,18 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
-          <div className="max-w-1xl w-full select-none truncate bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem] md:max-w-[38rem] lg:max-w-3xl ">
-            {(sessionData && (
-              <h1 className="text-[13vw] xs:text-[10vw] sm:text-[5rem]">
-                <span className="text-[10vw] xs:text-[7vw] sm:text-[3rem]">
-                  Hello,
-                </span>
-                <br></br>
-                {sessionData.user?.name}
-              </h1>
-            )) || (
-              <h1 className="text-[13vw] xs:text-[11vw] sm:text-[5rem]">
-                veryCrunchyDev
-              </h1>
-            )}
-            <div className="mt-5 flex justify-between">
-              <p className="bg-none text-[7vw] text-red-700 opacity-20 sm:text-4xl">
-                this site is a w.i.p.
-              </p>
-              <div className="flex text-base sm:text-lg">
-                <SignIn />
-              </div>
-            </div>
-          </div>
+          <UserGreeting screen={true} />
           <div className="mb-2 h-auto w-full rounded-xl bg-gray-100/70 sm:py-5 md:w-5/6 md:max-w-3xl">
-            <h1 className="mb-2 w-full select-none pt-4 text-center text-4xl font-bold leading-tight text-gray-800 sm:pt-0 sm:text-5xl">
+            <h1 className="mb-2 w-full select-none pt-4 text-center text-[10vw] font-bold leading-tight text-gray-800/20 xs:text-5xl sm:pt-0 sm:text-6xl">
               Leaderboard
             </h1>
 
             <div className="mx-auto my-2 max-w-md overflow-hidden rounded text-xs">
               {data?.map((bump, index) => {
                 const u = user?.find((u) => u.id == bump.uid);
-                let src = `https://cdn.discordapp.com/avatars/${u?.id || "0"}/${
-                  u?.avatar || "default-avatar"
-                }.png`;
-                if (src.includes("default-avatar"))
-                  src = "https://cdn.discordapp.com/embed/avatars/0.png";
+                let src = "https://cdn.discordapp.com/embed/avatars/0.png";
+                if (u)
+                  src = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png`;
 
                 let style =
                   "relative mt-2 flex mx-2 items-center rounded-lg bg-white px-2 py-2 text-gray-900/90";
@@ -110,7 +84,7 @@ const Home: NextPage = () => {
                         </p>
                       </div>
                     </div>
-                    <div className=" absolute right-5 flex items-center text-lg font-bold sm:text-2xl">
+                    <div className="absolute right-2 flex items-center text-2xl font-bold sm:right-5 ">
                       <p className="w-8 px-1 text-center">{bump.bumps}</p>
                     </div>
                   </div>
@@ -125,21 +99,6 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-const SignIn: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  return (
-    <button
-      className="rounded-full bg-white/10 px-6 py-2 font-semibold text-white no-underline transition hover:bg-white/20"
-      onClick={
-        sessionData ? () => void signOut() : () => void signIn("discord")
-      }
-    >
-      {sessionData ? "Sign out" : "Sign in"}
-    </button>
-  );
-};
 
 function ordinal(i: number) {
   const j = i % 10,

@@ -1,6 +1,9 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
+import UserGreeting from "~/components/UserGreeting";
+
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
 
@@ -13,53 +16,10 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex h-screen items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
-          <div className="max-w-1xl select-none  truncate bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem] md:max-w-[38rem] lg:max-w-3xl ">
-            {(sessionData && (
-              <h1 className="text-[13vw] xs:text-[10vw] sm:text-[5rem]">
-                <span className="text-[10vw] xs:text-[7vw] sm:text-[3rem]">
-                  Hello,
-                </span>
-                <br></br>
-                {sessionData.user?.name}
-              </h1>
-            )) || (
-              <h1 className="text-[13vw] xs:text-[11vw] sm:text-[5rem]">
-                veryCrunchyDev
-              </h1>
-            )}
-            <div className="mt-5 flex justify-between">
-              <p className="bg-none text-[7vw] text-red-700 opacity-20 sm:text-4xl">
-                this site is a w.i.p.
-              </p>
-            </div>
-          </div>
-          {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div> */}
+          <UserGreeting />
+
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white"></p>
-            <AuthShowcase />
           </div>
         </div>
       </main>

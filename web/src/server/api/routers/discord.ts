@@ -43,7 +43,7 @@ export const discordRouter = createTRPCRouter({
             const userPromise = response.json() as Promise<UserData>;
             const data = await userPromise;
             info.push(data);
-            cache.set(cacheKey, data, 3600);
+            cache.set(cacheKey, data, 18000); //cache for 5 hours
           }
         })
       );
