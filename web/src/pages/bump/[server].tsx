@@ -34,19 +34,19 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
-          <h1 className="max-w-1xl w-full select-none truncate bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem] md:max-w-[38rem] lg:max-w-3xl ">
+          <div className="max-w-1xl w-full select-none truncate bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem] md:max-w-[38rem] lg:max-w-3xl ">
             {(sessionData && (
-              <span className="text-[13vw] xs:text-[10vw] sm:text-[5rem]">
+              <h1 className="text-[13vw] xs:text-[10vw] sm:text-[5rem]">
                 <span className="text-[10vw] xs:text-[7vw] sm:text-[3rem]">
                   Hello,
                 </span>
                 <br></br>
                 {sessionData.user?.name}
-              </span>
+              </h1>
             )) || (
-              <span className="text-[13vw] xs:text-[11vw] sm:text-[5rem]">
+              <h1 className="text-[13vw] xs:text-[11vw] sm:text-[5rem]">
                 veryCrunchyDev
-              </span>
+              </h1>
             )}
             <div className="mt-5 flex justify-between">
               <p className="bg-none text-[7vw] text-red-700 opacity-20 sm:text-4xl">
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
                 <SignIn />
               </div>
             </div>
-          </h1>
+          </div>
           <div className="mb-2 h-auto w-full rounded-xl bg-gray-100/70 sm:py-5 md:w-5/6 md:max-w-3xl">
             <h1 className="mb-2 w-full select-none pt-4 text-center text-4xl font-bold leading-tight text-gray-800 sm:pt-0 sm:text-5xl">
               Leaderboard

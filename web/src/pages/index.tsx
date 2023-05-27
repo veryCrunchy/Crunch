@@ -13,26 +13,26 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex h-screen items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
-          <h1 className="max-w-1xl select-none  truncate bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem] md:max-w-[38rem] lg:max-w-3xl ">
+          <div className="max-w-1xl select-none  truncate bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem] md:max-w-[38rem] lg:max-w-3xl ">
             {(sessionData && (
-              <span className="text-[13vw] xs:text-[10vw] sm:text-[5rem]">
+              <h1 className="text-[13vw] xs:text-[10vw] sm:text-[5rem]">
                 <span className="text-[10vw] xs:text-[7vw] sm:text-[3rem]">
                   Hello,
                 </span>
                 <br></br>
                 {sessionData.user?.name}
-              </span>
+              </h1>
             )) || (
-              <span className="text-[13vw] xs:text-[11vw] sm:text-[5rem]">
+              <h1 className="text-[13vw] xs:text-[11vw] sm:text-[5rem]">
                 veryCrunchyDev
-              </span>
+              </h1>
             )}
             <div className="mt-5 flex justify-between">
               <p className="bg-none text-[7vw] text-red-700 opacity-20 sm:text-4xl">
                 this site is a w.i.p.
               </p>
             </div>
-          </h1>
+          </div>
           {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
             <Link
               className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
