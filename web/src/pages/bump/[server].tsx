@@ -32,29 +32,33 @@ const Home: NextPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen  flex-col items-center justify-center">
-        <div className="container  flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="select-none bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem]">
+      <main className="flex min-h-screen items-center justify-center">
+        <div className="container flex flex-col items-center justify-center gap-12 px-4">
+          <h1 className="max-w-1xl w-full select-none truncate bg-white/50 bg-clip-text pb-5 text-5xl font-extrabold tracking-tight text-transparent sm:text-[5rem] md:max-w-[38rem] lg:max-w-3xl ">
             {(sessionData && (
-              <span>
-                <span className="text-2xl sm:text-[3rem] ">Hello,</span>
+              <span className="text-[13vw] xs:text-[10vw] sm:text-[5rem]">
+                <span className="text-[10vw] xs:text-[7vw] sm:text-[3rem]">
+                  Hello,
+                </span>
                 <br></br>
                 {sessionData.user?.name}
               </span>
             )) || (
-              <span className="text-[12vw] sm:text-[5rem]">veryCrunchyDev</span>
+              <span className="text-[13vw] xs:text-[11vw] sm:text-[5rem]">
+                veryCrunchyDev
+              </span>
             )}
             <div className="mt-5 flex justify-between">
               <p className="bg-none text-[7vw] text-red-700 opacity-20 sm:text-4xl">
                 this site is a w.i.p.
               </p>
-              <div className="flex text-sm sm:text-lg">
+              <div className="flex text-base sm:text-lg">
                 <SignIn />
               </div>
             </div>
           </h1>
-          <div className="h-auto w-full rounded-xl bg-gray-100/80 py-5 md:w-5/6 md:max-w-3xl">
-            <h1 className="mb-2 w-full select-none pb-4 text-center text-4xl font-bold leading-tight text-gray-800 sm:text-5xl">
+          <div className="mb-2 h-auto w-full rounded-xl bg-gray-100/70 sm:py-5 md:w-5/6 md:max-w-3xl">
+            <h1 className="mb-2 w-full select-none pt-4 text-center text-4xl font-bold leading-tight text-gray-800 sm:pt-0 sm:text-5xl">
               Leaderboard
             </h1>
 
@@ -68,7 +72,7 @@ const Home: NextPage = () => {
                   src = "https://cdn.discordapp.com/embed/avatars/0.png";
 
                 let style =
-                  "relative mb-2 flex mx-2 items-center rounded-lg bg-white px-2 py-2 text-gray-900/90";
+                  "relative mt-2 flex mx-2 items-center rounded-lg bg-white px-2 py-2 text-gray-900/90";
                 if (index == 0)
                   style +=
                     " bg-gradient-to-br from-yellow-400/60 to-orange-400/50";
@@ -77,7 +81,7 @@ const Home: NextPage = () => {
                     " bg-gradient-to-br from-indigo-300/60 to-indigo-200/60";
                 if (index == 2)
                   style +=
-                    " bg-gradient-to-br from-[#c28f61]/60 to-[#8f6947]/50";
+                    " bg-gradient-to-br from-[#ffdcc0]/90 to-[#decbbd]/90";
 
                 return (
                   <div key={bump.id} className={style}>
@@ -126,16 +130,14 @@ const SignIn: React.FC = () => {
   const { data: sessionData } = useSession();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <button
-        className="rounded-full bg-white/10 px-[3vw]  py-[2vw] font-semibold text-white no-underline transition hover:bg-white/20 sm:px-6 sm:py-2"
-        onClick={
-          sessionData ? () => void signOut() : () => void signIn("discord")
-        }
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
+    <button
+      className="rounded-full bg-white/10 px-6 py-2 font-semibold text-white no-underline transition hover:bg-white/20"
+      onClick={
+        sessionData ? () => void signOut() : () => void signIn("discord")
+      }
+    >
+      {sessionData ? "Sign out" : "Sign in"}
+    </button>
   );
 };
 
