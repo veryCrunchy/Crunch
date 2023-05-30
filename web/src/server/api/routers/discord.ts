@@ -9,11 +9,15 @@ export type UserData = {
   avatar: string;
   discriminator: string;
 };
+export type ServerData = {
+  id: string;
+  name: string;
+};
 
 const cache = new NodeCache();
 
 export const discordRouter = createTRPCRouter({
-  getBasicUsersInfo: publicProcedure
+  getUsersInfo: publicProcedure
     .input(z.object({ users: z.string().array() }))
     .query(async ({ input }) => {
       const info: UserData[] = [];
@@ -48,5 +52,65 @@ export const discordRouter = createTRPCRouter({
         })
       );
       return info;
+    }),
+  getUserInfo: publicProcedure
+    .input(z.object({ user: z.string() }))
+    .query(async ({ input }) => {
+      const cacheKey = `discord:${input.user}`;
+      const cachedData = cache.get(cacheKey) as UserData | undefined;
+      if (cachedData) {
+        return cachedData;
+      } else {
+        const response = await fetch(
+          `https://discord.com/api/v10/users/${input.user}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bot ${String(env.DISCORD_TOKEN)}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: response.statusText,
+          });
+        }
+
+        const userPromise = response.json() as Promise<UserData>;
+        const data = await userPromise;
+        cache.set(cacheKey, data, 18000); //cache for 5 hours
+        return data;
+      }
+    }),
+  getServerInfo: publicProcedure
+    .input(z.object({ server: z.string() }))
+    .query(async ({ input }) => {
+      const cacheKey = `discord:${input.server}`;
+      const cachedData = cache.get(cacheKey) as UserData | undefined;
+      if (cachedData) {
+        return cachedData;
+      } else {
+        const response = await fetch(
+          `https://discord.com/api/v10/guilds/${input.server}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bot ${String(env.DISCORD_TOKEN)}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: response.statusText,
+          });
+        }
+
+        const userPromise = response.json() as Promise<UserData>;
+        const data = await userPromise;
+        cache.set(cacheKey, data, 18000); //cache for 5 hours
+        return data;
+      }
     }),
 });
