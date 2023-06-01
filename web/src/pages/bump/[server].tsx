@@ -2,10 +2,9 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Suspense } from "react";
+import { useState } from "react";
 import UserGreeting from "~/components/UserGreeting";
 import { api } from "~/utils/api";
-
 const Home: NextPage = () => {
   const router = useRouter();
 
@@ -32,11 +31,7 @@ const Home: NextPage = () => {
 
             <div className="mx-auto my-2 max-w-md overflow-hidden rounded text-xs">
               {data?.map((bump, index) => {
-                return (
-                  <Suspense key={bump.id}>
-                    <UserBump index={index} bump={bump} />
-                  </Suspense>
-                );
+                return <UserBump key={bump.id} index={index} bump={bump} />;
               })}
             </div>
           </div>
@@ -59,6 +54,7 @@ interface Options {
 
 const UserBump: React.FC<Options> = (props: Options) => {
   const { index, bump } = props;
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const { data: u } = api.discord.getUserInfo.useQuery({
     user: bump.uid,
@@ -79,21 +75,25 @@ const UserBump: React.FC<Options> = (props: Options) => {
 
   return (
     <div className={style}>
-      <div className="flex w-5/12">
+      <div className="flex">
         <div className="absolute h-10 w-10">
           <p className="text-md -translate-x- absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pr-1 text-lg font-bold">
             {index + 1}
             <span className="text-sm font-semibold">{ordinal(index + 1)}</span>
           </p>
         </div>
+        {!isLoaded && (
+          <div className="absolute ml-10 mr-3 h-10 w-10 animate-pulse select-none rounded-full bg-gray-400/50" />
+        )}
         <Image
-          className="ml-10 mr-4 h-10 w-10 select-none rounded-full"
+          onLoad={() => setIsLoaded(true)}
+          className="ml-10 mr-3 h-10 w-10 select-none rounded-full"
           alt="user-icon"
           src={src}
           width={100}
           height={100}
         ></Image>
-        <div className="flex w-full">
+        <div className="flex w-[10rem]">
           {u ? (
             <p className="relative w-full whitespace-nowrap text-base font-extrabold">
               {u?.username}
@@ -102,9 +102,9 @@ const UserBump: React.FC<Options> = (props: Options) => {
               </span>
             </p>
           ) : (
-            <div className="relative mt-1 h-4 w-full animate-pulse rounded-md bg-gray-300">
+            <div className="relative mt-1 h-4 w-[35vw] animate-pulse rounded-md bg-gray-400/50 xs:w-60">
               <br />
-              <div className="mt-2 h-2 w-2/3 animate-pulse rounded-md bg-gray-300"></div>
+              <div className="mt-2 h-3 w-14 animate-pulse rounded-md bg-gray-400/50"></div>
             </div>
           )}
         </div>
