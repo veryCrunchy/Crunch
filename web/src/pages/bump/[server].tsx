@@ -9,10 +9,11 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   const server = router.query.server;
+  const m = router.query.m || new Date().getMonth() + 1;
   const { data } = api.bumps.getAll.useQuery({
     server: String(server),
+    month: Number(m),
   });
-
   return (
     <>
       <Head>
