@@ -4,9 +4,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import UserGreeting from "~/components/UserGreeting";
+import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 const Home: NextPage = () => {
   const router = useRouter();
+  const { data: sessionData } = useSession();
 
   const server = router.query.server;
   const m = router.query.m || new Date().getMonth() + 1;
@@ -14,6 +16,9 @@ const Home: NextPage = () => {
     server: String(server),
     month: Number(m),
   });
+  const serverData = api.discord.getServerInfo.useQuery({
+    server: String(server),
+  }).data;
   return (
     <>
       <Head>
@@ -24,10 +29,10 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4">
-          <UserGreeting screen={true} />
+          <UserGreeting screen={true} name={serverData?.name} />
           <div className="mb-2 h-auto w-full rounded-xl bg-gray-100/60 sm:py-5 md:w-5/6 md:max-w-3xl">
             <h1 className="mb-2 w-full select-none pt-4 text-center text-[10vw] font-bold leading-tight text-[#f59c89]/80 xs:text-5xl sm:pt-0 sm:text-6xl">
-              Leaderboard
+              {sessionData ? serverData?.name : "Leaderboard"}
             </h1>
 
             <div className="mx-auto my-2 max-w-md overflow-hidden rounded text-xs">
@@ -72,7 +77,13 @@ const UserBump: React.FC<Options> = (props: Options) => {
   if (index == 1)
     style += " bg-gradient-to-br from-indigo-300/60 to-indigo-200/60";
   if (index == 2)
-    style += " bg-gradient-to-br from-[#ffdcc0]/90 to-[#decbbd]/90";
+    style += " bg-gradient-to-br from-[#ffedde]/90 to-[#f8e0d1]/90";
+  let display_name = u?.display_name;
+  if (!u?.display_name) display_name = u?.username;
+  let username;
+  if (u?.username) username = `@${u?.username}`;
+  if (u?.discriminator && u?.discriminator !== "0")
+    username = `#${u?.discriminator}`;
 
   return (
     <div className={style}>
@@ -97,9 +108,10 @@ const UserBump: React.FC<Options> = (props: Options) => {
         <div className="flex w-[10rem]">
           {u ? (
             <p className="relative w-full whitespace-nowrap text-base font-extrabold">
-              {u?.username}
+              {display_name}
               <span className="absolute left-0 text-sm font-semibold text-gray-600/60">
-                <br />#{u?.discriminator || ""}
+                <br />
+                {username}
               </span>
             </p>
           ) : (

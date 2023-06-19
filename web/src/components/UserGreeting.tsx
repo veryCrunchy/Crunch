@@ -2,6 +2,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 interface Options {
   screen?: boolean;
+  name?: string;
 }
 
 const UserGreeting: React.FC<Options> = (props: Options) => {
@@ -25,7 +26,7 @@ const UserGreeting: React.FC<Options> = (props: Options) => {
                 <br></br>
                 {sessionData.user?.name}
               </h1>
-            )) || <h1>veryCrunchyDev</h1>}
+            )) || <h1>{props.name || "veryCrunchyDev"}</h1>}
           </div>
           <div className="mt-5 flex justify-between">
             <p className="mr-2 bg-none text-[7vw] text-red-700 opacity-20 xs:text-3xl md:text-3xl">

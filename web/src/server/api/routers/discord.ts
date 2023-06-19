@@ -8,6 +8,7 @@ export type UserData = {
   username: string;
   avatar: string;
   discriminator: string;
+  display_name: string;
 };
 export type ServerData = {
   id: string;
@@ -70,6 +71,7 @@ export const discordRouter = createTRPCRouter({
             },
           }
         );
+
         if (!response.ok) {
           throw new TRPCError({
             code: "CONFLICT",
@@ -79,6 +81,7 @@ export const discordRouter = createTRPCRouter({
 
         const userPromise = response.json() as Promise<UserData>;
         const data = await userPromise;
+
         cache.set(cacheKey, data, 18000); //cache for 5 hours
         return data;
       }
@@ -87,7 +90,7 @@ export const discordRouter = createTRPCRouter({
     .input(z.object({ server: z.string() }))
     .query(async ({ input }) => {
       const cacheKey = `discord:${input.server}`;
-      const cachedData = cache.get(cacheKey) as UserData | undefined;
+      const cachedData = cache.get(cacheKey) as ServerData | undefined;
       if (cachedData) {
         return cachedData;
       } else {
@@ -107,8 +110,10 @@ export const discordRouter = createTRPCRouter({
           });
         }
 
-        const userPromise = response.json() as Promise<UserData>;
-        const data = await userPromise;
+        const serverPromise = response.json() as Promise<ServerData>;
+        const data = await serverPromise;
+        console.log(data);
+
         cache.set(cacheKey, data, 18000); //cache for 5 hours
         return data;
       }
