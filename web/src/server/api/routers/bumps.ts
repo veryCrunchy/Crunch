@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
+
 export const bumpsRouter = createTRPCRouter({
   getAll: publicProcedure
     .input(

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import NodeCache from "node-cache";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { cache } from "~/utils/api";
 import { env } from "~/env.mjs";
 export type UserData = {
   id: string;
@@ -14,8 +14,6 @@ export type ServerData = {
   id: string;
   name: string;
 };
-
-const cache = new NodeCache();
 
 export const discordRouter = createTRPCRouter({
   getUsersInfo: publicProcedure
