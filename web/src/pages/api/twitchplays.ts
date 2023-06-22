@@ -11,8 +11,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (!isValidData(data)) {
       res.status(400).json({ message: "Invalid JSON data" });
       return;
-    }
-    cache.set("twitchplays", req.body, 600);
+    } else cache.set("twitchplays", req.body, 600);
     res
       .status(200)
       .json({ message: "TwitchPlays inputs successfully received" });
@@ -21,7 +20,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-function isValidData(data: any): data is Data[] {
+function isValidData(data: unknown): data is Data[] {
   if (!Array.isArray(data)) {
     return false;
   }
@@ -36,6 +35,7 @@ function isValidData(data: any): data is Data[] {
       return false;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (typeof item.name !== "string" || !Array.isArray(item.inputs)) {
       return false;
     }
