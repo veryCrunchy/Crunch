@@ -10,164 +10,7 @@ const Home: NextPage = () => {
     name: string;
     inputs: string[];
   }
-  // const { data } = api.twitchplays.get.useQuery<Data[]>();
-
-  const data = [
-    {
-      name: "a",
-      inputs: ["a"],
-      outputs: ["A"],
-      time: [0],
-    },
-    {
-      name: "b",
-      inputs: ["b"],
-      outputs: ["B"],
-      time: [0],
-    },
-    {
-      name: "big drive",
-      inputs: ["big drive", "large drive", "big d", "large d", "bd", "ld"],
-      outputs: ["A"],
-      time: [10],
-    },
-    {
-      name: "drive",
-      inputs: ["drive", "go", "d", "vroom"],
-      outputs: ["A"],
-      time: [5],
-    },
-    {
-      name: "slight drive",
-      inputs: ["slight drive", "slight go", "small drive", "small go", "sd"],
-      outputs: ["A"],
-      time: [2],
-    },
-    {
-      name: "left",
-      inputs: ["left", "l"],
-      outputs: ["J", "A"],
-      time: [1, 1.2],
-    },
-    {
-      name: "right",
-      inputs: ["right", "r"],
-      outputs: ["L", "A"],
-      time: [1, 1.2],
-    },
-    {
-      name: "slight left",
-      inputs: ["slight left", "slight l", "small left", "small l", "sl"],
-      outputs: ["J", "A"],
-      time: [0.4, 0.4],
-    },
-    {
-      name: "slight right",
-      inputs: [
-        "slight right",
-        "slight r",
-        "small right",
-        "small r",
-        "sr",
-        "slight right",
-        "slight r",
-        "small right",
-        "small r",
-        "sr",
-      ],
-      outputs: ["L", "A"],
-      time: [0.4, 0.5],
-    },
-    {
-      name: "drift right",
-      inputs: ["drift right", "drift r", "dr"],
-      outputs: ["L", "A", "B"],
-      time: [1.7, 1.7, 1.2],
-      delay: [0, 0, 0.2],
-    },
-    {
-      name: "drift left",
-      inputs: ["drift left", "drift l", "dl"],
-      outputs: ["J", "A", "B"],
-      time: [2, 2, 1.5],
-      delay: [0, 0, 0.2],
-    },
-    {
-      name: "slight drift right",
-      inputs: ["slight drift right", "slight drift r", "slight dr", "sdr"],
-      outputs: ["L", "A", "B"],
-      time: [1.1, 1.1, 0.6],
-      delay: [0, 0, 0.2],
-    },
-    {
-      name: "slight drift left",
-      inputs: ["slight drift left", "slight drift l", "slight dl", "sdl"],
-      outputs: ["J", "A", "B"],
-      time: [1.1, 1.1, 0.6],
-      delay: [0, 0, 0.2],
-    },
-    {
-      name: "use item",
-      inputs: ["use", "item", "power up"],
-      outputs: ["Z"],
-      time: [0],
-    },
-    {
-      name: "look behind",
-      inputs: ["look behind", "look back", "behind"],
-      outputs: ["C"],
-      time: [2],
-    },
-    {
-      name: "reverse",
-      inputs: ["reverse", "back"],
-      outputs: ["B", "C"],
-      time: [2, 2],
-    },
-    {
-      name: "wheelie",
-      inputs: ["wheelie"],
-      outputs: ["Num9", "Num0"],
-      time: [0.1, 0.1],
-      delay: [0, 0.2],
-    },
-    {
-      name: "hop",
-      inputs: ["hop"],
-      outputs: ["B"],
-      time: [0],
-    },
-    {
-      name: "select",
-      inputs: ["select", "sel", "choose"],
-      outputs: ["Num2"],
-      time: [0],
-    },
-    {
-      name: "select up",
-      inputs: ["select up", "sel up"],
-      outputs: ["Up"],
-      time: [0],
-    },
-    {
-      name: "select down",
-      inputs: ["select down", "sel down"],
-      outputs: ["Down"],
-      time: [0],
-    },
-    {
-      name: "select left",
-      inputs: ["select left", "sel left"],
-      outputs: ["Left"],
-      time: [0],
-    },
-    {
-      name: "select right",
-      inputs: ["select right", "sel right"],
-      outputs: ["Right"],
-      time: [0],
-    },
-  ];
+  const { data } = api.twitchplays.get.useQuery<Data[]>();
 
   return (
     <>
@@ -196,7 +39,7 @@ const Home: NextPage = () => {
         #inputs ul {
           list-style-type: disc;
           padding-left: 20px;
-          margin-bottom: 5px;
+          margin-bottom: 2px;
         }
 
         #inputs strong {
@@ -217,6 +60,7 @@ const Home: NextPage = () => {
           color: #c19dfb;
           font-size: 1.1rem;
           margin-right: 0.3rem;
+          margin-bottom: 0.3rem;
           list-style: none;
           display: inline-block;
           word-break: break-all;
