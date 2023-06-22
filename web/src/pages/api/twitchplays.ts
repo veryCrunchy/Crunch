@@ -1,14 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { cache } from "~/utils/api";
-import { event } from "nextjs-google-analytics";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     cache.set("twitchplays", req.body, 600);
-    event("twitchplays_json", {
-      category: "TwitchPlays",
-    });
-
     res
       .status(200)
       .json({ message: "TwitchPlays inputs successfully received" });
