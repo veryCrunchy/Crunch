@@ -10,7 +10,164 @@ const Home: NextPage = () => {
     name: string;
     inputs: string[];
   }
-  const { data } = api.twitchplays.get.useQuery<Data[]>();
+  // const { data } = api.twitchplays.get.useQuery<Data[]>();
+
+  const data = [
+    {
+      name: "a",
+      inputs: ["a"],
+      outputs: ["A"],
+      time: [0],
+    },
+    {
+      name: "b",
+      inputs: ["b"],
+      outputs: ["B"],
+      time: [0],
+    },
+    {
+      name: "big drive",
+      inputs: ["big drive", "large drive", "big d", "large d", "bd", "ld"],
+      outputs: ["A"],
+      time: [10],
+    },
+    {
+      name: "drive",
+      inputs: ["drive", "go", "d", "vroom"],
+      outputs: ["A"],
+      time: [5],
+    },
+    {
+      name: "slight drive",
+      inputs: ["slight drive", "slight go", "small drive", "small go", "sd"],
+      outputs: ["A"],
+      time: [2],
+    },
+    {
+      name: "left",
+      inputs: ["left", "l"],
+      outputs: ["J", "A"],
+      time: [1, 1.2],
+    },
+    {
+      name: "right",
+      inputs: ["right", "r"],
+      outputs: ["L", "A"],
+      time: [1, 1.2],
+    },
+    {
+      name: "slight left",
+      inputs: ["slight left", "slight l", "small left", "small l", "sl"],
+      outputs: ["J", "A"],
+      time: [0.4, 0.4],
+    },
+    {
+      name: "slight right",
+      inputs: [
+        "slight right",
+        "slight r",
+        "small right",
+        "small r",
+        "sr",
+        "slight right",
+        "slight r",
+        "small right",
+        "small r",
+        "sr",
+      ],
+      outputs: ["L", "A"],
+      time: [0.4, 0.5],
+    },
+    {
+      name: "drift right",
+      inputs: ["drift right", "drift r", "dr"],
+      outputs: ["L", "A", "B"],
+      time: [1.7, 1.7, 1.2],
+      delay: [0, 0, 0.2],
+    },
+    {
+      name: "drift left",
+      inputs: ["drift left", "drift l", "dl"],
+      outputs: ["J", "A", "B"],
+      time: [2, 2, 1.5],
+      delay: [0, 0, 0.2],
+    },
+    {
+      name: "slight drift right",
+      inputs: ["slight drift right", "slight drift r", "slight dr", "sdr"],
+      outputs: ["L", "A", "B"],
+      time: [1.1, 1.1, 0.6],
+      delay: [0, 0, 0.2],
+    },
+    {
+      name: "slight drift left",
+      inputs: ["slight drift left", "slight drift l", "slight dl", "sdl"],
+      outputs: ["J", "A", "B"],
+      time: [1.1, 1.1, 0.6],
+      delay: [0, 0, 0.2],
+    },
+    {
+      name: "use item",
+      inputs: ["use", "item", "power up"],
+      outputs: ["Z"],
+      time: [0],
+    },
+    {
+      name: "look behind",
+      inputs: ["look behind", "look back", "behind"],
+      outputs: ["C"],
+      time: [2],
+    },
+    {
+      name: "reverse",
+      inputs: ["reverse", "back"],
+      outputs: ["B", "C"],
+      time: [2, 2],
+    },
+    {
+      name: "wheelie",
+      inputs: ["wheelie"],
+      outputs: ["Num9", "Num0"],
+      time: [0.1, 0.1],
+      delay: [0, 0.2],
+    },
+    {
+      name: "hop",
+      inputs: ["hop"],
+      outputs: ["B"],
+      time: [0],
+    },
+    {
+      name: "select",
+      inputs: ["select", "sel", "choose"],
+      outputs: ["Num2"],
+      time: [0],
+    },
+    {
+      name: "select up",
+      inputs: ["select up", "sel up"],
+      outputs: ["Up"],
+      time: [0],
+    },
+    {
+      name: "select down",
+      inputs: ["select down", "sel down"],
+      outputs: ["Down"],
+      time: [0],
+    },
+    {
+      name: "select left",
+      inputs: ["select left", "sel left"],
+      outputs: ["Left"],
+      time: [0],
+    },
+    {
+      name: "select right",
+      inputs: ["select right", "sel right"],
+      outputs: ["Right"],
+      time: [0],
+    },
+  ];
 
   return (
     <>
@@ -55,13 +212,16 @@ const Home: NextPage = () => {
           backdrop-filter: blur(5px);
           -webkit-backdrop-filter: blur(5px);
           border: 1px solid rgba(193, 157, 251, 0.3);
-          padding: 2px 4px;
+          padding: 1.5px 4px;
           border-radius: 4px;
           color: #c19dfb;
-          font-size: 1.2rem;
-          white-space: nowrap;
+          font-size: 1.1rem;
           margin-right: 0.3rem;
+          list-style: none;
+          display: inline-block;
+          word-break: break-all;
         }
+
         #code {
           background: rgba(122, 70, 199, 0.08);
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -77,7 +237,7 @@ const Home: NextPage = () => {
       `}</style>
       <main className="flex min-h-screen justify-center bg-[#12131c] py-14">
         <div className="container flex max-w-fit flex-col items-center justify-center px-4">
-          <div className="twitchplays_card h-auto w-full rounded-xl bg-[#0d1117]/60 py-2 sm:py-4 ">
+          <div className="twitchplays_card h-auto w-full rounded-xl bg-[#0d1117]/60 py-2 sm:py-4">
             <h1 className="w-full select-none bg-gradient-to-br from-[#7d2be1] to-[#9b30ff] bg-clip-text px-5 py-2 pt-4 text-center text-[10vw] font-[900] uppercase leading-tight text-transparent xs:text-5xl sm:px-12 sm:py-8 sm:text-7xl">
               twitch plays
             </h1>
@@ -85,13 +245,13 @@ const Home: NextPage = () => {
 
             {data ? (
               <div
-                className="mx-auto content-center items-center lg:flex lg:flex-col lg:flex-wrap"
+                className="mx-auto flex-wrap content-center items-center justify-center lg:flex lg:flex-col"
                 id="inputs"
               >
                 {(data as Data[])?.map((input: Data) => {
                   return (
                     <>
-                      <ul>
+                      <ul key={input.name}>
                         <strong>{input.name}:</strong>
                         <br className="sm:hidden" />{" "}
                         {input.inputs.map((input) => {
