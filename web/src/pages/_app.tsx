@@ -40,6 +40,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       />
 
       <div
+        id="_app"
         className={
           roboto.className + " bg-gradient-to-br from-[#f77627] to-[#fc3b51] "
         }
