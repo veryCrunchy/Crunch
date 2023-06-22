@@ -15,8 +15,13 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Bump Leaderboard</title>
-        <meta name="description" content="Disboard bump leaderboard" />
+        <title>TwitchPlays</title>
+        <meta property="og:title" content="TwitchPlays" />
+        <meta
+          property="og:description"
+          content="View the inputs of the current Twitch Plays game."
+        />
+        <meta name="theme-color" content="#794ec4" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
