@@ -72,11 +72,10 @@ const Home: NextPage = () => {
           backdrop-filter: blur(5px);
           -webkit-backdrop-filter: blur(5px);
           border: 1px solid rgba(193, 157, 251, 0.3);
-          padding: 2px 4px;
           border-radius: 4px;
           color: #c19dfb;
+          overflow: hidden;
           white-space: nowrap;
-          margin-right: 0.3rem;
         }
       `}</style>
       <main className="flex min-h-screen justify-center bg-[#12131c] py-14">
@@ -85,7 +84,7 @@ const Home: NextPage = () => {
             <h1 className="w-full select-none bg-gradient-to-br from-[#7d2be1] to-[#9b30ff] bg-clip-text px-5 py-2 pt-4 text-center text-[10vw] font-[900] uppercase leading-tight text-transparent xs:text-5xl sm:px-12 sm:py-8 sm:text-7xl">
               twitch plays
             </h1>
-            <hr className="my-2 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 sm:my-4" />
+            <hr className="mb-2 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 sm:mb-4" />
 
             {data ? (
               <div
@@ -112,12 +111,12 @@ const Home: NextPage = () => {
               </div>
             ) : (
               <div
-                className="mx-auto flex flex-col flex-wrap content-center items-center"
+                className="mx-3 flex flex-col flex-wrap content-center items-center"
                 id="inputs"
               >
                 <div
                   id="code"
-                  className="mx-3 flex justify-center text-[3.5vw] sm:text-[1.2rem]"
+                  className="flex justify-center px-2 text-[clamp(0px,_4vw,_1.2rem)] sm:text-2xl"
                 >
                   Not streaming Twitch Plays at the moment
                 </div>
@@ -126,7 +125,7 @@ const Home: NextPage = () => {
             <hr className="my-2 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 sm:my-4" />
             <div className="flex flex-row-reverse gap-3">
               <a
-                className="twitchplays_button mr-4 flex h-10 w-10 items-center fill-[#c19dfb]"
+                className="twitchplays_button mr-3 flex h-10 w-10 items-center fill-[#c19dfb]"
                 href="https://github.com/veryCrunchy/TwitchPlays"
                 aria-label="Github"
               >
