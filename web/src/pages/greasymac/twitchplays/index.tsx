@@ -23,23 +23,29 @@ const Home: NextPage = () => {
         />
         <meta name="theme-color" content="#794ec4" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        ></link>
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        ></link>
+
         <link rel="icon" href="/favicon.greasymac.ico" />
       </Head>
       <style jsx global>{`
         html {
           font-family: ${inter.style.fontFamily};
+        }
+
+        .twitchplays_card {
+          background: rgba(122, 61, 212, 0.06);
+          border-radius: 16px;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          -webkit-backdrop-filter: blur(17.1px);
+          border: 1px solid rgba(122, 61, 212, 0.33);
+        }
+
+        .twitchplays_button {
+          background: rgba(122, 70, 199, 0.08);
+          border-radius: 10px;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(5.8px);
+          -webkit-backdrop-filter: blur(5.8px);
+          border: 1px solid rgba(122, 70, 199, 0.33);
         }
 
         #inputs h3 {
