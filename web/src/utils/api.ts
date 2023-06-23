@@ -67,4 +67,4 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
  * @example type HelloOutput = RouterOutputs['example']['hello']
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
-export const cache = new NodeCache({ checkperiod: 90 });
+export const cache = new NodeCache();
